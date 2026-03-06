@@ -1,44 +1,46 @@
-# Prerequisites
-*.d
+# Build directories (contains ~300 MB JUCE source + all compiled artefacts)
+build/
+build-release/
+out/
 
-# Compiled Object files
-*.slo
-*.lo
+# CMake user presets (machine-specific, not shared)
+CMakeUserPresets.json
+
+# Built plugin artefacts (install these, don't commit them)
+*.vst3
+*.component
+*.dSYM
+
+# macOS system noise
+.DS_Store
+**/.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Compiled object / linker artefacts
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+*.slo
+*.lo
 *.a
 *.lib
-
-# Executables
+*.dylib
+*.dll
+*.so
 *.exe
 *.out
-*.app
-
-# debug information files
+*.ilk
+*.pdb
+*.pch
+*.gch
+*.d
 *.dwo
-
-# Mac stuff
-.DS_Store
+*.mod
+*.smod
+*.lai
+*.la

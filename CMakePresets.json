@@ -1,0 +1,115 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 22, "patch": 0 },
+
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+
+    {
+      "name": "macos-debug",
+      "displayName": "macOS — Universal Debug (arm64 + x86_64)",
+      "description": "Debug build targeting both Apple Silicon and Intel Macs",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+
+    {
+      "name": "macos-release",
+      "displayName": "macOS — Universal Release (arm64 + x86_64)",
+      "description": "Optimised release build with LTO, targeting both Apple Silicon and Intel Macs",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+
+    {
+      "name": "macos-arm64-debug",
+      "displayName": "macOS — Apple Silicon Debug (arm64 only)",
+      "description": "Faster iteration build for Apple Silicon Macs — no cross-compilation",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_OSX_ARCHITECTURES": "arm64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+
+    {
+      "name": "macos-x86-debug",
+      "displayName": "macOS — Intel Debug (x86_64 only)",
+      "description": "Debug build targeting Intel Macs or Rosetta 2 testing",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_OSX_ARCHITECTURES": "x86_64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "build-macos-debug",
+      "displayName": "Build macOS Debug",
+      "configurePreset": "macos-debug",
+      "jobs": 0
+    },
+    {
+      "name": "build-macos-release",
+      "displayName": "Build macOS Release",
+      "configurePreset": "macos-release",
+      "jobs": 0
+    },
+    {
+      "name": "build-macos-arm64-debug",
+      "displayName": "Build macOS arm64 Debug",
+      "configurePreset": "macos-arm64-debug",
+      "jobs": 0
+    },
+    {
+      "name": "build-macos-x86-debug",
+      "displayName": "Build macOS x86_64 Debug",
+      "configurePreset": "macos-x86-debug",
+      "jobs": 0
+    }
+  ]
+}
