@@ -142,9 +142,60 @@ lipo -info build-release/plugin/Vibe404Synth_artefacts/Release/VST3/Vibe404.vst3
 
 ## Windows
 
-> **Coming soon.** Windows (x86_64, VST3 + Standalone) support is planned. The CMake build
-> system is already cross-platform; Windows-specific presets and instructions will be added
-> in a future release.
+### Prerequisites
+
+| Tool | Minimum | Install |
+|------|---------|---------|
+| Visual Studio 2022 | Community or higher, "Desktop development with C++" workload | [visualstudio.microsoft.com](https://visualstudio.microsoft.com/) |
+| CMake | 3.22 | [cmake.org](https://cmake.org/download/) or `winget install Kitware.CMake` |
+| Ninja | any | `winget install Ninja-build.Ninja` |
+| Git | any | [git-scm.com](https://git-scm.com/) or `winget install Git.Git` |
+
+> **Important:** CMake presets use Ninja as the generator. Ninja requires the MSVC
+> compiler to be on your PATH. Open an **x64 Native Tools Command Prompt for VS 2022**
+> (search the Start menu) before running any `cmake` commands. This sets up the correct
+> environment automatically.
+
+> **First configure** clones JUCE 8.0.12 (~300 MB) into `build/_deps/`. This is a one-time
+> download cached locally; subsequent configures are instant.
+
+### Quick Start (using CMake Presets)
+
+From an **x64 Native Tools Command Prompt for VS 2022**, in the repository root:
+
+#### Release build
+
+```cmd
+cmake --preset windows-release
+cmake --build --preset build-windows-release
+```
+
+Artefacts land in `build-release/plugin/Vibe404Synth_artefacts/Release/`.
+
+#### Debug build
+
+```cmd
+cmake --preset windows-debug
+cmake --build --preset build-windows-debug
+```
+
+Artefacts land in `build/plugin/Vibe404Synth_artefacts/Debug/`.
+
+### Manual Configure (without presets)
+
+```cmd
+cmake -S . -B build-release -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build-release --parallel
+```
+
+### Build Targets (Windows)
+
+| Target | Output |
+|--------|--------|
+| `Vibe404Synth_VST3` | `Vibe404.vst3` — for Ableton, Bitwig, Reaper, Cubase |
+| `Vibe404Synth_Standalone` | `Vibe404.exe` — runs without a DAW |
+
+AU is macOS-only and is not built on Windows.
 
 ---
 

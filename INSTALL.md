@@ -135,8 +135,56 @@ After removing the AU, Logic will stop showing the plugin automatically on next 
 
 ## Windows
 
-> **Coming soon.** Windows (x86_64, VST3 + Standalone) support is planned for a future
-> release. Install paths will be:
->
-> - VST3: `C:\Program Files\Common Files\VST3\`
-> - Standalone: anywhere in `%PROGRAMFILES%`
+Build the plugin first — see the Windows section of [BUILD.md](BUILD.md).
+
+### VST3
+
+Copy the bundle to the standard VST3 folder (requires administrator privileges):
+
+```cmd
+xcopy /E /I build-release\plugin\Vibe404Synth_artefacts\Release\VST3\Vibe404.vst3 ^
+      "%COMMONPROGRAMFILES%\VST3\Vibe404.vst3\"
+```
+
+Most DAWs scan this location automatically on next launch. If yours does not, trigger a
+manual rescan from the DAW's plug-in settings.
+
+### Standalone
+
+No installation required. Copy `Vibe404.exe` to any convenient location and run it directly.
+
+```cmd
+copy build-release\plugin\Vibe404Synth_artefacts\Release\Standalone\Vibe404.exe ^
+     "%PROGRAMFILES%\Vibe404\Vibe404.exe"
+```
+
+### DAW-Specific Notes (Windows)
+
+**Ableton Live**
+1. Copy `Vibe404.vst3` as above
+2. Open Ableton Live → **Options → Preferences → Plug-Ins**
+3. Ensure `C:\Program Files\Common Files\VST3` is listed under VST3 plug-in folder
+4. Click **Rescan**; Vibe404 appears under **Instruments**
+
+**Reaper**
+1. Copy `Vibe404.vst3` as above
+2. Open Reaper → **Options → Preferences → Plug-ins → VST**
+3. Click **Re-scan / find new plug-ins**
+4. Insert Vibe404 via the FX browser
+
+**Bitwig Studio**
+1. Copy `Vibe404.vst3` as above
+2. Open Bitwig → **Dashboard → Settings → Locations**
+3. Ensure the VST3 folder is listed, then click **Rescan plug-ins**
+4. Vibe404 appears in the Instruments browser
+
+**Cubase / Nuendo**
+1. Copy `Vibe404.vst3` as above
+2. Cubase rescans VST3 automatically on next launch
+3. Find Vibe404 under **VST Instruments**
+
+### Uninstalling (Windows)
+
+```cmd
+rmdir /S /Q "%COMMONPROGRAMFILES%\VST3\Vibe404.vst3"
+```

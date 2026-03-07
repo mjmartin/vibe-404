@@ -83,6 +83,38 @@
         "lhs": "${hostSystemName}",
         "rhs": "Darwin"
       }
+    },
+
+    {
+      "name": "windows-debug",
+      "displayName": "Windows — x64 Debug",
+      "description": "Debug build targeting Windows x86_64 (run from x64 Native Tools Command Prompt for VS 2022)",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+
+    {
+      "name": "windows-release",
+      "displayName": "Windows — x64 Release",
+      "description": "Optimised release build with LTO targeting Windows x86_64 (run from x64 Native Tools Command Prompt for VS 2022)",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
     }
   ],
 
@@ -109,6 +141,18 @@
       "name": "build-macos-x86-debug",
       "displayName": "Build macOS x86_64 Debug",
       "configurePreset": "macos-x86-debug",
+      "jobs": 0
+    },
+    {
+      "name": "build-windows-debug",
+      "displayName": "Build Windows x64 Debug",
+      "configurePreset": "windows-debug",
+      "jobs": 0
+    },
+    {
+      "name": "build-windows-release",
+      "displayName": "Build Windows x64 Release",
+      "configurePreset": "windows-release",
       "jobs": 0
     }
   ]

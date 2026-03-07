@@ -1,5 +1,11 @@
+if(APPLE)
+    set(_VIBE404_FORMATS VST3 AU Standalone)
+else()
+    set(_VIBE404_FORMATS VST3 Standalone)
+endif()
+
 juce_add_plugin(Vibe404Synth
-    FORMATS VST3 AU Standalone
+    FORMATS ${_VIBE404_FORMATS}
     IS_SYNTH TRUE
     NEEDS_MIDI_INPUT TRUE
     PLUGIN_CODE Vi04
